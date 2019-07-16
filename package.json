@@ -1,0 +1,49 @@
+{
+  "name": "node-explorer",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Eugene Matvejev, <eugene.matvejev@gmail.com>",
+  "engines": {
+    "node": ">=10"
+  },
+  "dependencies": {
+    "apollo-server": "^2.6.3",
+    "dataloader": "^1.4.0",
+    "dotenv": "^8.0.0",
+    "graphql": "^14.3.1",
+    "lodash": "^4.17.11",
+    "mysql2": "^1.6.5",
+    "pg": "^7.11.0",
+    "sequelize": "^5.8.12"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "apollo-server-testing": "^2.6.7",
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "sequelize-cli": "^5.5.0",
+    "sqlite3": "^4.0.9"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r dotenv/config node_modules/.bin/nodemon ./src/app.js",
+    "sequlize": "node -r dotenv/config node_modules/.bin/babel-node ./node_modules/.bin/sequelize",
+    "start:debug": "npm run start -- --inspect",
+    "build": "babel --copy-files --out-dir ./build --verbose ./src",
+    "test": "node -r dotenv/config node_modules/.bin/jest"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**?(/*).js?(x)",
+      "!src/**?(/*)index.js?(x)",
+      "!src/**.js?(x)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>src/jest-provision.js"
+    ]
+  }
+}

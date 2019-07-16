@@ -1,0 +1,19 @@
+{
+    "restartable": "r",
+    "ignore": [
+      ".git",
+      "node_modules/**",
+      "src/**/*.test.js"
+    ],
+    "verbose": true,
+    "execMap": {
+      "js": "./node_modules/.bin/babel-node"
+    },
+    "events": {
+      "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
+    },
+    "watch": [
+      "src/"
+    ],
+    "ext": "js,json"
+  }
