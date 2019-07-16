@@ -31,7 +31,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node -r dotenv/config node_modules/.bin/nodemon ./src/app.js",
-    "sequlize": "node -r dotenv/config node_modules/.bin/babel-node ./node_modules/.bin/sequelize",
+    "sql": "node -r dotenv/config node_modules/.bin/babel-node ./node_modules/.bin/sequelize",
     "start:debug": "npm run start -- --inspect",
     "build": "babel --copy-files --out-dir ./build --verbose ./src",
     "test": "node -r dotenv/config node_modules/.bin/jest"
