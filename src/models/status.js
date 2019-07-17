@@ -1,10 +1,34 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const status = sequelize.define('status', {
-    name: DataTypes.STRING
-  }, {});
-  status.associate = function(models) {
-    // associations can be defined here
-  };
-  return status;
+export default (sequelize, DataTypes) => {
+    const model = sequelize.define(
+        'Status',
+        {
+            id: {
+                // type: DataTypes.UUID,
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true,
+            },
+            name: {
+                type: DataTypes.STRING,
+                unique: true,
+            },
+            state: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: 0,
+            },
+            parent: {
+                type: DataTypes.INTEGER
+            },
+        },
+        {
+            tableName: 'statuses',
+            timestamps: false,
+        }
+    );
+
+    model.hasMany(model, { as: 'children', foreignKey: 'parent' });
+    model.belongsTo(model, { foreignKey: 'parent' });
+
+    return model;
 };
