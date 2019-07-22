@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GraphQL Type: Status mutation should create new status, as status with same name do NOT exists yet 1`] = `
+Object {
+  "addStatus": Object {
+    "id": "11",
+    "name": "root",
+  },
+}
+`;
+
+exports[`GraphQL Type: Status mutation should update status, as such name do NOT exists yet 1`] = `
+Object {
+  "updateStatus": Object {
+    "id": "1",
+    "name": "update status 1 name",
+  },
+}
+`;
+
+exports[`GraphQL Type: Status query fetch all statuses' only scalar values 1`] = `
+Object {
+  "statuses": Array [
+    Object {
+      "id": "1",
+      "name": "status 1",
+    },
+    Object {
+      "id": "2",
+      "name": "status 2",
+    },
+    Object {
+      "id": "3",
+      "name": "status 3",
+    },
+    Object {
+      "id": "4",
+      "name": "status which exists",
+    },
+    Object {
+      "id": "5",
+      "name": "status 1 children: 1",
+    },
+    Object {
+      "id": "6",
+      "name": "status 2 children: 1",
+    },
+    Object {
+      "id": "7",
+      "name": "status 2 children: 2",
+    },
+    Object {
+      "id": "8",
+      "name": "status 3 children: 1",
+    },
+    Object {
+      "id": "9",
+      "name": "status 3 children: 2",
+    },
+    Object {
+      "id": "10",
+      "name": "status 3 children: 3",
+    },
+  ],
+}
+`;
+
+exports[`GraphQL Type: Status query fetch only scalar values 1`] = `
+Object {
+  "status": Object {
+    "id": "1",
+    "name": "status 1",
+  },
+}
+`;
+
+exports[`GraphQL Type: Status query fetch parent's scalar values 1`] = `
+Object {
+  "status": Object {
+    "parent": Object {
+      "id": "1",
+      "name": "status 1",
+    },
+  },
+}
+`;
