@@ -38,9 +38,8 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**?(/*).js?(x)",
-      "!src/**?(/*)index.js?(x)",
-      "!src/**.js?(x)"
+      "src/*/**.js",
+      "!src/**?(/*)index.js?(x)"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>src/jest-provision.js"
