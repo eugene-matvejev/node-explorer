@@ -12,7 +12,7 @@ export default (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 unique: true,
             },
-            state: {
+            seq: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 defaultValue: 0,
