@@ -17,12 +17,14 @@ new ApolloServer({
     context: {
         orm,
     },
-    formatError: (error) => {
-        console.log(error);
-        return error;
+    /** if you want console.log */
+    formatError: (r) => {
+        console.log(r);
+        return r;
     },
-    formatResponse: (response) => {
-        return response;
+    /** if you want console.log */
+    formatResponse: (r) => {
+        return r;
     },
 })
     .listen(process.env.PORT)
