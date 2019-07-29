@@ -46,6 +46,12 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 
 * with `make` commands no steps additional required, otherwise you need execute `$ npm i`
 
+### how to setup a database
+
+* database configuration is located in the file __config/config.js__
+* to get database schema up to date: `$ npm run sql db:migrate`, you can also create database via ORM `npm run sql db:create`
+* to seed database with 'test' data: `$ npm run sql db:seed:all`
+
 ### how to run tests
 
 * `$ make test` or `$ npm test`
