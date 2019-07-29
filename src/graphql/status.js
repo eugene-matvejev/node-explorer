@@ -31,8 +31,6 @@ export default {
     resolvers: {
         Mutation: {
             addStatus: (entity, { input }, { orm }, info) => {
-                const { state, ...values } = input;
-
                 return orm.Status.create(
                     { ...input },
                     {}
