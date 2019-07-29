@@ -13,7 +13,7 @@
 | __tests__     | [![tests][ci.tests-master-badge]][ci.tests-master]            | [![tests][ci.tests-heroku-badge]][ci.tests-heroku]
 | __coverage__  | [![coverage][ci.coverage-master-badge]][ci.coverage-master]   | [![coverage][ci.coverage-heroku-badge]][ci.coverage-heroku]
 
-# 'RAG Status Explorer' GraphQL backend
+# 'Explorer' GraphQL backend
 
 ##### THIS IS SPARE TIME PROJECT, WORK IN PROGRESS!
 
