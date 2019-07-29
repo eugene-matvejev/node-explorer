@@ -13,27 +13,19 @@ export default {
         type Status {
             id: ID!
             name: String!
-            state: StateEnum!
+            seq: Int!
             parent: Status
         }
 
         input CreateStatusInput {
             name: String!
-            state: StateEnum
             parent: ID
         }
 
         input UpdateStatusInput {
             id: ID!
             name: String!
-            state: StateEnum
             parent: ID
-        }
-
-        enum StateEnum {
-            RED
-            AMBER
-            GREEN
         }
     `,
     resolvers: {
