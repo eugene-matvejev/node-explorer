@@ -19,7 +19,6 @@ new ApolloServer({
     },
     /** if you want console.log */
     formatError: (r) => {
-        console.log(r);
         return r;
     },
     /** if you want console.log */
