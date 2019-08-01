@@ -13,7 +13,7 @@
 | __tests__     | [![tests][ci.tests-master-badge]][ci.tests-master]            | [![tests][ci.tests-heroku-badge]][ci.tests-heroku]
 | __coverage__  | [![coverage][ci.coverage-master-badge]][ci.coverage-master]   | [![coverage][ci.coverage-heroku-badge]][ci.coverage-heroku]
 
-# 'RAG Status Explorer' GraphQL backend
+# 'Explorer' GraphQL backend
 
 ##### THIS IS SPARE TIME PROJECT, WORK IN PROGRESS!
 
@@ -45,6 +45,12 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 ### how to install
 
 * with `make` commands no steps additional required, otherwise you need execute `$ npm i`
+
+### how to setup a database
+
+* database configuration is located in the file __config/config.js__
+* to get database schema up to date: `$ npm run sql db:migrate`, you can also create database via ORM `npm run sql db:create`
+* to seed database with 'test' data: `$ npm run sql db:seed:all`
 
 ### how to run tests
 

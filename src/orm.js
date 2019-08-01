@@ -3,8 +3,11 @@ const Sequelize = require('sequelize');
 const conf = require('../config/config');
 
 const c = conf[process.env.NODE_ENV];
-
-const sequelize = new Sequelize(c.database, c.username, c.password, c);
+/** Heroku way, of DATABASE_URL, because heroku rotate credentials */
+const p = process.env.DATABASE_URL
+    ? [process.env.DATABASE_URL]
+    : [c.database, c.username, c.password, c];
+const sequelize = new Sequelize(...p);
 
 const context = fs
     .readdirSync(`${__dirname}/models`)
