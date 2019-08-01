@@ -16,13 +16,13 @@
     "mysql2": "^1.6.5",
     "pg": "^7.11.0",
     "sequelize-cli": "^5.5.0",
-    "sequelize": "^5.8.12"
-  },
-  "devDependencies": {
+    "sequelize": "^5.8.12",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/node": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+  },
+  "devDependencies": {
     "apollo-server-testing": "^2.6.7",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
