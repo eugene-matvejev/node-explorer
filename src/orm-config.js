@@ -6,6 +6,9 @@ const orm = {
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT,
+    dialectOptions: {
+        ssl: true,
+    },
 };
 const test = {
     ...orm,
