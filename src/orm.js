@@ -1,6 +1,6 @@
 const fs = require('fs');
 const Sequelize = require('sequelize');
-const conf = require('./config');
+const conf = require('./orm-config');
 
 const c = conf[process.env.NODE_ENV];
 /** Heroku way, of DATABASE_URL, because heroku rotate credentials */

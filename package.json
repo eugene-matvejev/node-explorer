@@ -30,7 +30,7 @@
   },
   "main": "src/app.js",
   "scripts": {
-    "sql": "node -r dotenv/config node_modules/.bin/babel-node ./node_modules/.bin/sequelize --config src/config.js",
+    "sql": "node -r dotenv/config node_modules/.bin/babel-node ./node_modules/.bin/sequelize --config src/orm-config.js",
     "build": "babel --copy-files --out-dir ./build --verbose ./src",
     "postbuild": "npm run sql db:migrate",
     "start": "node -r dotenv/config build/app.js",
