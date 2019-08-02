@@ -15,7 +15,7 @@
 
 # 'Explorer' GraphQL backend
 
-##### THIS IS SPARE TIME PROJECT, WORK IN PROGRESS!
+##### THIS IS SPARE TIME PROJECT, WORK IN PROGRESS! [DEMO](https://sa-explorer.herokuapp.com/)
 
 ### software requirements
 
