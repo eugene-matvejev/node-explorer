@@ -1,3 +1,4 @@
+/** maintained as separate file, because of Sequlize CLI way of including config */
 const orm = {
     host: process.env.DB_HOSTNAME,
     username: process.env.DB_USERNAME,
