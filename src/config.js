@@ -8,15 +8,12 @@ const orm = {
 };
 const test = {
     ...orm,
-    logging: false,
     dialect: 'sqlite',
     storage: `${__dirname}/../var/database-${process.pid}.sqlite`,
 };
-
 module.exports = {
     development: orm,
     production: orm,
     'undefined': orm,
     test,
-    secret: process.env.SECRET_KEY,
 }
