@@ -55,7 +55,6 @@ export const resolvers = merge(
                     3: 0x1000, //Red
                 }
 
-
                 for (const statusId in hashmap) {
                     const status = hashmap[statusId];
                     status.seq = 0;
