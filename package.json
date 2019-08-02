@@ -32,7 +32,7 @@
   "scripts": {
     "sql": "node -r dotenv/config node_modules/.bin/babel-node ./node_modules/.bin/sequelize --config src/config.js",
     "build": "babel --copy-files --out-dir ./build --verbose ./src",
-    "postbuild": "npm run sql db:migrate",
+    "postbuild": "npm run sql db:migrate && npm run sql db:seed:all",
     "start": "node -r dotenv/config build/app.js",
     "start:debug": "npm run start -- --inspect=0.0.0.0",
     "test": "node -r dotenv/config node_modules/.bin/jest"
