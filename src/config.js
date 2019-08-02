@@ -6,6 +6,9 @@ const orm = {
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT,
     protocol: 'postgres',
+    dialectOptions: {
+        ssl: true,
+    },
 };
 const test = {
     ...orm,
