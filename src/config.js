@@ -18,5 +18,4 @@ module.exports = {
     production: orm,
     'undefined': orm,
     test,
-    secret: process.env.SECRET_KEY,
 }
