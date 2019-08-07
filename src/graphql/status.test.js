@@ -10,10 +10,10 @@ describe('GraphQL Type: Status', () => {
                     }
                 }`
             });
-    
+
             expect(data).toMatchSnapshot();
         });
-    
+
         it(`fetch only scalar values`, async () => {
             const { data } = await query({
                 query: `
@@ -24,10 +24,10 @@ describe('GraphQL Type: Status', () => {
                     }
                 }`
             });
-    
+
             expect(data).toMatchSnapshot();
         });
-    
+
         it(`fetch parent's scalar values`, async () => {
             const { data } = await query({
                 query: `
@@ -40,8 +40,36 @@ describe('GraphQL Type: Status', () => {
                     }
                 }`
             });
-    
+
             expect(data).toMatchSnapshot();
+        });
+
+        describe('search by pattern', () => {
+            it(`by pattern only`, async () => {
+                const { data } = await query({
+                    query: `
+                    {
+                        searchStatus(pattern: "children") {
+                            name
+                        }
+                    }`
+                });
+
+                expect(data).toMatchSnapshot();
+            });
+
+            it(`by pattern and enforced perPage/page variables`, async () => {
+                const { data } = await query({
+                    query: `
+                    {
+                        searchStatus(pattern: "children", perPage: 1, page: 1) {
+                            name
+                        }
+                    }`
+                });
+
+                expect(data).toMatchSnapshot();
+            });
         });
     });
 
@@ -55,12 +83,12 @@ describe('GraphQL Type: Status', () => {
                             name: "root"
                         }
                     ) {
-                        id 
+                        id
                         name
                     }
                 }`
             });
-    
+
             expect(data).toMatchSnapshot();
         });
 

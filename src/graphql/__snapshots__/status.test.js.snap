@@ -84,3 +84,38 @@ Object {
   },
 }
 `;
+
+exports[`GraphQL Type: Status query search by pattern by pattern and enforced perPage/page variables 1`] = `
+Object {
+  "searchStatus": Array [
+    Object {
+      "name": "status 1 children: 1",
+    },
+  ],
+}
+`;
+
+exports[`GraphQL Type: Status query search by pattern by pattern only 1`] = `
+Object {
+  "searchStatus": Array [
+    Object {
+      "name": "status 1 children: 1",
+    },
+    Object {
+      "name": "status 2 children: 1",
+    },
+    Object {
+      "name": "status 2 children: 2",
+    },
+    Object {
+      "name": "status 3 children: 1",
+    },
+    Object {
+      "name": "status 3 children: 2",
+    },
+    Object {
+      "name": "status 3 children: 3",
+    },
+  ],
+}
+`;
