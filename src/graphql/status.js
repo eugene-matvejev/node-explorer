@@ -3,6 +3,7 @@ export default {
         extend type Query {
             status(id: ID!): Status
             statuses: [Status]
+            searchStatus(pattern: String!, perPage: Int = 25, page: Int = 1): [Status]
         }
 
         extend type Mutation {
@@ -67,6 +68,23 @@ export default {
             },
             statuses: (entity, args, { orm }, info) => {
                 return orm.Status.findAll({
+                    raw: true,
+                });
+            },
+            searchStatus: (entity, { pattern, perPage: limit, page }, { orm }, info) => {
+                const offset = (page - 1) * limit;
+
+                return orm.Status.findAll({
+                    where: {
+                        name: {
+                            [orm.Sequelize.Op.like]: `%${pattern}%`,
+                        },
+                    },
+                    order: [
+                        ['name', 'ASC'],
+                    ],
+                    offset,
+                    limit,
                     raw: true,
                 });
             },
