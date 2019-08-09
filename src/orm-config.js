@@ -6,6 +6,7 @@ const orm = {
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT,
+    storage: `${__dirname}/../var/database.sqlite`,
 };
 const test = {
     ...orm,
