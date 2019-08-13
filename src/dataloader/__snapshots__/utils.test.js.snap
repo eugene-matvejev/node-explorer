@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dataloader utils processSQLResult should return Array<Array<Object>>, ordered by key value, and injecting NULL in absense of a value [2nd and 3rd values should duplicated, because of key value] 1`] = `
+Array [
+  Array [
+    Object {
+      "v": 1,
+    },
+  ],
+  Array [
+    Object {
+      "v": 3,
+    },
+    Object {
+      "v": 3,
+    },
+  ],
+  Array [
+    Object {
+      "v": 3,
+    },
+    Object {
+      "v": 3,
+    },
+  ],
+]
+`;
+
+exports[`dataloader utils processSQLResult should return Array<Array<Object>>, ordered by key value, and injecting NULL in absense/falsy value 1`] = `
+Array [
+  Array [
+    Object {
+      "v": 1,
+    },
+  ],
+  null,
+  Array [
+    Object {
+      "v": 3,
+    },
+    Object {
+      "v": 3,
+    },
+  ],
+]
+`;
+
+exports[`dataloader utils processSQLResult should return Array<Object>, ordered by key value, and injecting NULL in absense of/falsy value 1`] = `
+Array [
+  Object {
+    "v": 1,
+  },
+  Object {
+    "v": 2,
+  },
+  Object {
+    "v": 3,
+  },
+  null,
+]
+`;

@@ -90,21 +90,7 @@ export default {
             },
         },
         Status: {
-            parent: (entity, args, { orm }, info) => {
-                return orm.Status.findOne({
-                    include: [
-                        {
-                            attributes: [],
-                            model: orm.Status,
-                            as: 'children',
-                            where: {
-                                id: entity.id,
-                            },
-                        },
-                    ],
-                    raw: true,
-                });
-            },
+            parent: (entity, args, { dataloader }, info) => dataloader.getStatusByChildrenId.load(entity.id),
         }
     },
 }
