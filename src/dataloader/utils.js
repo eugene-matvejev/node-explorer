@@ -58,7 +58,6 @@ export const processSQLResult = (keys, key, values, aggregateInArray) => {
                 : acc[v[key]].push(v);
         } else acc[v[key]] = v;
     }
-    debugger;
 
     return keys.map((v) => acc[v] || null);
 }
