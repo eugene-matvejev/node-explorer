@@ -3,6 +3,7 @@
 import { ApolloServer } from 'apollo-server';
 import { typeDefs, resolvers } from './graphql';
 import orm from './orm';
+import compose from './dataloader/status.dataloader';
 
 new ApolloServer({
     cors: {
@@ -16,6 +17,7 @@ new ApolloServer({
     resolvers,
     context: {
         orm,
+        dataloader: compose(orm),
     },
     /** if you want console.log */
     formatError: (r) => {
