@@ -4,10 +4,10 @@ const conf = require('./orm-config');
 
 const c = conf[process.env.NODE_ENV];
 /** Heroku way, of DATABASE_URL, because heroku rotate credentials */
-const p = process.env.DATABASE_URL
+const v = process.env.DATABASE_URL
     ? [process.env.DATABASE_URL]
     : [c.database, c.username, c.password, c];
-const sequelize = new Sequelize(...p);
+const sequelize = new Sequelize(...v);
 
 const context = fs
     .readdirSync(`${__dirname}/models`)
