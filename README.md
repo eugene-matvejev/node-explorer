@@ -13,7 +13,7 @@
 | __tests__     | [![tests][ci.tests-master-badge]][ci.tests-master]            | [![tests][ci.tests-heroku-badge]][ci.tests-heroku]
 | __coverage__  | [![coverage][ci.coverage-master-badge]][ci.coverage-master]   | [![coverage][ci.coverage-heroku-badge]][ci.coverage-heroku]
 
-# 'Explorer' GraphQL backend
+# 'Explorer' GraphQL SA
 
 ##### THIS IS SPARE TIME PROJECT, WORK IN PROGRESS! [DEMO](https://sa-explorer.herokuapp.com/)
 
@@ -72,10 +72,11 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 
 ### gitflow
 
-* master -> most up-to-date __production__ version
-* __proxy branch__ heroku -> master is not deployed to heroku with every push, because of limitations of 'free account'
+* heroku -> current __production__, contains _heroku specific changes_, trigger deploy on heroku on every push
+* master -> most upto date __production ready__
 * other branches -> 'feature branches' get merged into master
-CI build is a mandatory check for every PR into master/heroku branches
+CI 'jest' check is mandatory for every PR into master branch
+CI execute tests in isolated enviroment
 
 ### used environment variables
 
