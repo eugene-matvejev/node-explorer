@@ -31,6 +31,7 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 * [apollo server](https://www.apollographql.com/docs/apollo-server/)
 * [express.js](https://expressjs.com/)
 * [sequlize](http://docs.sequelizejs.com/)
+* [dataloader](https://github.com/graphql/dataloader)
 * [graphql](https://graphql.org/)
 * [jest](https://facebook.github.io/jest/)
 

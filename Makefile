@@ -2,7 +2,6 @@
 .DEV_IMAGE := explorer-sa
 .SERVE_IMAGE := explorer-sa-serve
 
-
 PORT := 8081
 PORT_DEBUG := 9229
 DB_HOSTNAME := host.docker.internal
@@ -80,7 +79,7 @@ test: dev-image
 interactive: dev-image
 	docker run \
 		--rm \
-		--name sa \
+		--name sa-$(PORT) \
 		-it \
 		$(.SHARED_VOLUMES) \
 		$(.ENV_VARIABLES) \
@@ -92,7 +91,7 @@ interactive: dev-image
 serve: build serve-image
 	docker run \
 		--rm \
-		--name sa-serve \
+		--name sa-serve-$(PORT) \
 		-it \
 		-v $(PWD)/build:/www/build \
 		$(.ENV_VARIABLES) \
