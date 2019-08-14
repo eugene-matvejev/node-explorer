@@ -15,7 +15,7 @@
 
 # 'Explorer' GraphQL SA
 
-##### THIS IS SPARE TIME PROJECT, WORK IN PROGRESS! [DEMO](https://sa-explorer.herokuapp.com/)
+##### THIS IS A SPARE TIME PROJECT, WORK IN PROGRESS! [DEMO](https://sa-explorer.herokuapp.com/)
 
 ### software requirements
 
@@ -79,15 +79,15 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 
 ### used environment variables
 
-| variable      | default value | used as
-|---            |---            |---
-| PORT          | 8081          | number
-| DB_HOSTNAME   | 127.0.0.1     | string
-| DB_USERNAME   | root          | string
-| DB_PASSWORD   | password      | string
-| DB_PORT       | 3306          | number
-| DB_NAME       | battleship    | string
-| DB_DIALECT    | mysql         | string
+| variable      | default value | used as   | purpose
+|---            |---            |---        | ---
+| PORT          | 8081          | number    | port on which application will be made available
+| DB_HOSTNAME   | 127.0.0.1     | string    | host on which database can be reached
+| DB_USERNAME   | root          | string    | database user
+| DB_PASSWORD   | password      | string    | database user's password
+| DB_PORT       | 3306          | number    | port on which database can be reached
+| DB_NAME       | explorer      | string    | database [schema] name
+| DB_DIALECT    | mysql         | string    | database's dialect: one of mysql|sqlite|postgres
 
 ### supported databases
 | database      | version
