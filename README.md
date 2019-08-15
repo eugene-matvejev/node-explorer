@@ -103,4 +103,4 @@ code, migrations, and fixtures are written in a way, that is supports 3 differen
 |---            |---        | ---                                               | ---
 | MySQL         | 5.7       | [mysql2](https://www.npmjs.com/package/mysql2)    | local development
 | PostgreSQL    | 11        | [pg](https://www.npmjs.com/package/pg)            | 'heroku' deployment
-| SQLite        | 4         | [sqlite3](https://www.npmjs.com/package/sqlite3)  | QA Pipelines
+| SQLite        | 4         | [sqlite3](https://www.npmjs.com/package/sqlite3)  | QA Automation & CI pipelines
