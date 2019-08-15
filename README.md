@@ -89,7 +89,7 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 | DB_PASSWORD   | password      | string    | database user's password
 | DB_PORT       | 3306          | number    | port on which database can be reached
 | DB_NAME       | explorer      | string    | database [schema] name
-| DB_DIALECT    | mysql         | string    | database's dialect: one of mysql|sqlite|postgres
+| DB_DIALECT    | mysql         | string    | database's dialect: one of mysql / sqlite / postgres
 
 ### supported databases
 
