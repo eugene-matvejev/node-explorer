@@ -72,6 +72,10 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 * if you __only__ need to generate static assets
   * `$ make build` or `$ npm run build` - generated assets will be located in __./build__ directory
 
+### how to run containers with different variables using 'make'
+
+* example: `make PORT=18081`
+
 ### gitflow
 
 * *heroku* -> current __production__, contains *heroku specific changes*, trigger deploy on heroku on *every push*
@@ -93,10 +97,10 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 
 ### supported databases
 
-code, migrations, and fixtures are written in a way, that it works 1:1 with 3 different database engines
+code, migrations, and fixtures are written in a way, that is supports 3 different database engines
 
 | database      | version   | adapter                                           | main purpose
 |---            |---        | ---                                               | ---
-| MySQL         | 5.7       | [mysql2](https://www.npmjs.com/package/mysql2)    | development
-| PostgreSQL    | 11        | [pg](https://www.npmjs.com/package/pg)            | production
+| MySQL         | 5.7       | [mysql2](https://www.npmjs.com/package/mysql2)    | local development
+| PostgreSQL    | 11        | [pg](https://www.npmjs.com/package/pg)            | heroku production
 | SQLite        | 4         | [sqlite3](https://www.npmjs.com/package/sqlite3)  | QA Pipiles
