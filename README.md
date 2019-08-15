@@ -92,8 +92,11 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 | DB_DIALECT    | mysql         | string    | database's dialect: one of mysql|sqlite|postgres
 
 ### supported databases
-| database      | version
-|---            |---
-| MySQL         | *5.7 tested*, using [mysql2](https://www.npmjs.com/package/mysql2)
-| PostgreSQL    | *11 tested*, using [pg](https://www.npmjs.com/package/pg)
-| SQLite        | *4.0.9 tested*, using [sqlite3](https://www.npmjs.com/package/sqlite3)
+
+code, migrations, and fixtures are written in a way, that it works 1:1 with 3 different database engines
+
+| database      | version   | adapter                                           | main purpose
+|---            |---        | ---                                               | ---
+| MySQL         | 5.7       | [mysql2](https://www.npmjs.com/package/mysql2)    | development
+| PostgreSQL    | 11        | [pg](https://www.npmjs.com/package/pg)            | production
+| SQLite        | 4         | [sqlite3](https://www.npmjs.com/package/sqlite3)  | QA Pipiles
