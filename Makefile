@@ -68,6 +68,8 @@ help:
 	@echo " DB_PORT:\t\t$(.DB_PORT)"
 	@echo " DB_NAME:\t\t$(.DB_NAME)"
 	@echo " DB_DIALECT:\t\t$(.DB_DIALECT)"
+	@echo ""
+
 dev-image:
 	docker build -t $(.DEV_IMAGE) .
 
