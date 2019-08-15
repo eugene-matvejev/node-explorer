@@ -13,9 +13,11 @@
 | __tests__     | [![tests][ci.tests-master-badge]][ci.tests-master]            | [![tests][ci.tests-heroku-badge]][ci.tests-heroku]
 | __coverage__  | [![coverage][ci.coverage-master-badge]][ci.coverage-master]   | [![coverage][ci.coverage-heroku-badge]][ci.coverage-heroku]
 
-# 'Explorer' GraphQL backend
+##### THIS IS A SPARE TIME PROJECT, WORK IN PROGRESS! [DEMO](https://sa-explorer.herokuapp.com/)
 
-##### THIS IS SPARE TIME PROJECT, WORK IN PROGRESS! [DEMO](https://sa-explorer.herokuapp.com/)
+# 'Explorer' GraphQL back-end
+
+front-end can be found [here](https://github.com/eugene-matvejev/react-explorer)
 
 ### software requirements
 
@@ -72,22 +74,22 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 
 ### gitflow
 
-* master -> most up-to-date __production__ version
-* __proxy branch__ heroku -> master is not deployed to heroku with every push, because of limitations of 'free account'
-* other branches -> 'feature branches' get merged into master
-CI build is a mandatory check for every PR into master/heroku branches
+* *heroku* -> current __production__, contains *heroku specific changes*, trigger deploy on heroku on *every push*
+* *master* -> most upto date __production ready__, all pull requests in to this branch got mandatory check 'ci/circleci: jest'
+* *feature branches* -> get merged into master branch, when they ready and mandatory checks passed
+* *CI execute tests in isolated enviroment*
 
 ### used environment variables
 
-| variable      | default value | used as
-|---            |---            |---
-| PORT          | 8081          | number
-| DB_HOSTNAME   | 127.0.0.1     | string
-| DB_USERNAME   | root          | string
-| DB_PASSWORD   | password      | string
-| DB_PORT       | 3306          | number
-| DB_NAME       | battleship    | string
-| DB_DIALECT    | mysql         | string
+| variable      | default value | used as   | purpose
+|---            |---            |---        | ---
+| PORT          | 8081          | number    | port on which application will be made available
+| DB_HOSTNAME   | 127.0.0.1     | string    | host on which database can be reached
+| DB_USERNAME   | root          | string    | database user
+| DB_PASSWORD   | password      | string    | database user's password
+| DB_PORT       | 3306          | number    | port on which database can be reached
+| DB_NAME       | explorer      | string    | database [schema] name
+| DB_DIALECT    | mysql         | string    | database's dialect: one of mysql|sqlite|postgres
 
 ### supported databases
 
