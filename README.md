@@ -49,18 +49,18 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 
 * with `make` commands no steps additional required, otherwise you need execute `$ npm i`
 
-### how to setup a database
-
-* database configuration is located in the file __config/config.js__
-* to get database schema up to date: `$ npm run sql db:migrate`, you can also create database via ORM `npm run sql db:create`
-* to seed database with 'test' data: `$ npm run sql db:seed:all`
-
 ### how to run tests
 
 * `$ make test` or `$ npm test`
   * __optional__ [ 'jest' CLI params](https://facebook.github.io/jest/docs/en/cli.html) some examples:
     * to generate coverage report, example: `$ npm test -- --coverage`, which will be located in __./coverage__ directory
     * to execute tests __only__ in specific file, example: `$ npm test src/graphql/user.test.js`
+
+### how to setup a database
+
+* database configuration is located in the file __config/config.js__
+* to get database schema up to date: `$ npm run sql db:migrate`, you can also create database via ORM `npm run sql db:create`
+* to seed database with 'test' data: `$ npm run sql db:seed:all`
 
 ### how to run in 'development' mode
 
