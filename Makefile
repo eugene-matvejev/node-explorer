@@ -2,14 +2,23 @@
 .DEV_IMAGE := explorer-sa
 .SERVE_IMAGE := explorer-sa-serve
 
-PORT := 8081
-PORT_DEBUG := 9229
-DB_HOSTNAME := host.docker.internal
-DB_USERNAME := root
-DB_PASSWORD := password
-DB_NAME := explorer
-DB_PORT := 3306
-DB_DIALECT := mysql
+.PORT := 8081
+.PORT_DEBUG := 9229
+.DB_HOSTNAME := host.docker.internal
+.DB_USERNAME := root
+.DB_PASSWORD := password
+.DB_NAME := explorer
+.DB_PORT := 3306
+.DB_DIALECT := mysql
+
+PORT := $(.PORT)
+PORT_DEBUG := $(.PORT_DEBUG)
+DB_HOSTNAME := $(.DB_HOSTNAME)
+DB_USERNAME := $(.DB_USERNAME)
+DB_PASSWORD := $(.DB_PASSWORD)
+DB_NAME := $(.DB_NAME)
+DB_PORT := $(.DB_PORT)
+DB_DIALECT := $(.DB_DIALECT)
 
 .SHARED_VOLUMES := \
 	-v $(PWD)/config:/www/config \
@@ -32,13 +41,14 @@ DB_DIALECT := mysql
 
 help:
 	@echo ""
-	@echo " Explorer SA [ client server application ] "
-	@echo "-------------------------------------------"
+	@echo "-------------------------------------------------"
+	@echo "---------- 'Explorer' GraphQL back-end ----------"
+	@echo "-------------------------------------------------"
 	@echo ""
 	@echo " make help\t\tdisplay help"
 	@echo ""
 	@echo "-- DOCKER IMAGE PREPARATION"
-	@echo " make dev-image\t\tbuild [$(.DEV_IMAGE)] image which encapsulate dev-dependencies, nothing else"
+	@echo " make dev-image\t\tbuild [$(.DEV_IMAGE)] image, with encapsulate dependencies"
 	@echo " make serve-image\tbuild [$(.SERVE_IMAGE)] image of node + apline [no NPM]"
 	@echo ""
 	@echo "-- COMMANDS"
@@ -47,6 +57,17 @@ help:
 	@echo " make serve\t\trun [$(.SERVE_IMAGE)] image, content become available on http://localhost:$(PORT)"
 	@echo " make test\t\texecute unit and functional tests"
 	@echo " make build\t\tgenerate static assets in './build' directory"
+	@echo ""
+	@echo "-- ARGUMENTS"
+	@echo " argument\t\tdefault"
+	@echo " PORT:\t\t\t$(.PORT)"
+	@echo " PORT_DEBUG:\t\t$(.PORT_DEBUG)"
+	@echo " DB_HOSTNAME:\t\t$(.DB_HOSTNAME)"
+	@echo " DB_USERNAME:\t\t$(.DB_USERNAME)"
+	@echo " DB_PASSWORD:\t\t$(.DB_PASSWORD)"
+	@echo " DB_PORT:\t\t$(.DB_PORT)"
+	@echo " DB_NAME:\t\t$(.DB_NAME)"
+	@echo " DB_DIALECT:\t\t$(.DB_DIALECT)"
 	@echo ""
 
 dev-image:
