@@ -49,18 +49,18 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 
 * with `make` commands no steps additional required, otherwise you need execute `$ npm i`
 
-### how to setup a database
-
-* database configuration is located in the file __config/config.js__
-* to get database schema up to date: `$ npm run sql db:migrate`, you can also create database via ORM `npm run sql db:create`
-* to seed database with 'test' data: `$ npm run sql db:seed:all`
-
 ### how to run tests
 
 * `$ make test` or `$ npm test`
   * __optional__ [ 'jest' CLI params](https://facebook.github.io/jest/docs/en/cli.html) some examples:
     * to generate coverage report, example: `$ npm test -- --coverage`, which will be located in __./coverage__ directory
     * to execute tests __only__ in specific file, example: `$ npm test src/graphql/user.test.js`
+
+### how to setup a database
+
+* database configuration is located in the file __config/config.js__
+* to get database schema up to date: `$ npm run sql db:migrate`, you can also create database via ORM `npm run sql db:create`
+* to seed database with 'test' data: `$ npm run sql db:seed:all`
 
 ### how to run in 'development' mode
 
@@ -71,6 +71,10 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 * `$ make serve`, there is no *npm* equivalent
 * if you __only__ need to generate static assets
   * `$ make build` or `$ npm run build` - generated assets will be located in __./build__ directory
+
+### how to run containers with different variables using 'make'
+
+* example: `make PORT=18081`
 
 ### gitflow
 
@@ -89,14 +93,14 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 | DB_PASSWORD   | password      | string    | database user's password
 | DB_PORT       | 3306          | number    | port on which database can be reached
 | DB_NAME       | explorer      | string    | database [schema] name
-| DB_DIALECT    | mysql         | string    | database's dialect: one of mysql|sqlite|postgres
+| DB_DIALECT    | mysql         | string    | database's dialect: one of mysql / sqlite / postgres
 
 ### supported databases
 
-code, migrations, and fixtures are written in a way, that it works 1:1 with 3 different database engines
+code, migrations, and fixtures are written in a way, that is supports 3 different database engines
 
 | database      | version   | adapter                                           | main purpose
 |---            |---        | ---                                               | ---
-| MySQL         | 5.7       | [mysql2](https://www.npmjs.com/package/mysql2)    | development
-| PostgreSQL    | 11        | [pg](https://www.npmjs.com/package/pg)            | production
-| SQLite        | 4         | [sqlite3](https://www.npmjs.com/package/sqlite3)  | QA Pipiles
+| MySQL         | 5.7       | [mysql2](https://www.npmjs.com/package/mysql2)    | local development
+| PostgreSQL    | 11        | [pg](https://www.npmjs.com/package/pg)            | 'heroku' deployment
+| SQLite        | 4         | [sqlite3](https://www.npmjs.com/package/sqlite3)  | QA Automation & CI pipelines
