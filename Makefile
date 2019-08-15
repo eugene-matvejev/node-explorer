@@ -104,7 +104,7 @@ interactive: dev-image
 		-it \
 		$(.SHARED_VOLUMES) \
 		$(.ENV_VARIABLES) \
-		-e NODE_OPTIONS="--inspect-port=:$(PORT_DEBUG)" \
+		-e NODE_OPTIONS="--inspect-port=$(PORT_DEBUG)" \
 		-p $(PORT):$(PORT) \
 		-p $(PORT_DEBUG):$(PORT_DEBUG) \
 		--entrypoint=npm \
