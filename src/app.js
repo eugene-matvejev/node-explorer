@@ -8,7 +8,6 @@ import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github';
 import { Strategy as BearerStrategy } from 'passport-http-bearer';
 import cors from 'cors';
-import flash from 'connect-flash';
 import helmet from 'helmet';
 
 const app = express();
@@ -138,8 +137,6 @@ app.use(
 );
 app.use(session({
     secret: 'test',
-    resave: false,
-    saveUninitialized: false,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
