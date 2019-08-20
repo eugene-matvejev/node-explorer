@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 import express from 'express';
 import session from 'express-session';
-// import cookie from 'cookie-parser';
-import { ApolloServer } from 'apollo-server-express';
 import { typeDefs, resolvers } from './graphql';
 import orm from './orm';
 import compose from './dataloader/status.dataloader';
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github';
+import { Strategy as BearerStrategy } from 'passport-http-bearer';
 import cors from 'cors';
 import flash from 'connect-flash';
 import helmet from 'helmet';
@@ -19,7 +18,9 @@ const server = new ApolloServer({
     resolvers,
     context: ({ req }) => {
         const user = req.user;
+
         console.log({ user, 'req.session': req.session });
+
         return {
             user,
             orm,
@@ -29,6 +30,25 @@ const server = new ApolloServer({
 });
 
 app.use(helmet());
+
+passport.use(new BearerStrategy(
+    async (hash, done) => {
+        const user = await orm.User.findOne({
+            include: [
+                {
+                    attributes: [],
+                    model: orm.UserSession,
+                    where: {
+                        hash,
+                    },
+                },
+            ],
+            raw: true,
+        });
+
+        done(null, user, { scope: 'all' });
+    }
+));
 passport.use(
     new GitHubStrategy(
         {
@@ -39,7 +59,7 @@ passport.use(
         async (accessToken, refreshToken, profile, done) => {
             const { provider, id: externalId, profileUrl, username, displayName, photos } = profile;
             const photo = photos && photos[0] && photos[0].value;
-            console.log({accessToken, refreshToken});
+            console.log({ accessToken, refreshToken });
             const user = await orm.User.findOne({
                 include: [
                     {
@@ -85,10 +105,12 @@ passport.use(
 
 passport.serializeUser(({ hash }, done) => {
     console.log({ hash });
+
     done(null, hash);
 });
 passport.deserializeUser(async (hash, done) => {
     console.log({ hash });
+
     const user = await orm.User.findOne({
         include: [
             {
@@ -114,20 +136,13 @@ app.use(
         credentials: true,
     })
 );
-
-// app.use(cookie());
-// app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: 'test',
-    // resave: false,
-    // saveUninitialized: true,
-    // cookie: { secure: true }
+    resave: false,
+    saveUninitialized: false,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-// app.set('trust proxy', true);
-// app.use(flash());
 
 app.get(
     '/auth/github',
@@ -136,23 +151,33 @@ app.get(
 app.get(
     '/auth/github/callback',
     passport.authenticate('github'),
-    (req, res) => res.redirect('/graphql')
+    (req, res) => {
+        res.redirect(`//localhost:8080?token=${req.session.passport.user}`)
+    },
 );
-// app.use('/graphql', passport.authenticate('session', { session: true }));
+app.get(
+    '/auth/me',
+    (req, res) => {
+        res.send({
+            url: req.protocol + '://' + req.get('host') + req.originalUrl,
+            user: req.user,
+            sessionID: req.sessionID,
+            session: req.session,
+            cookie: JSON.stringify(req.cookie),
+        });
+    },
+);
 app.use('/graphql', (req, res, next) => {
-    debugger;
-    // passport.
     console.log({
-        // req,
-        session: JSON.stringify(req.session, ',', 4),
-        sessionID: req.sessionID,
-        cookie: JSON.stringify(req.cookie),
+        url: req.protocol + '://' + req.get('host') + req.originalUrl,
         user: req.user,
+        sessionID: req.sessionID,
+        session: req.session,
+        cookie: JSON.stringify(req.cookie),
     });
 
     return next();
 });
-
 server.applyMiddleware({ app, path: '/graphql' });
 app
     .listen(process.env.PORT, () => {

@@ -81,15 +81,17 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 
 ### used environment variables
 
-| variable      | default value | used as   | purpose
-|---            |---            |---        | ---
-| PORT          | 8081          | number    | port on which application will be made available
-| DB_HOSTNAME   | 127.0.0.1     | string    | host on which database can be reached
-| DB_USERNAME   | root          | string    | database user
-| DB_PASSWORD   | password      | string    | database user's password
-| DB_PORT       | 3306          | number    | port on which database can be reached
-| DB_NAME       | explorer      | string    | database [schema] name
-| DB_DIALECT    | mysql         | string    | database's dialect: one of mysql|sqlite|postgres
+| variable              | default value | used as   | purpose
+|---                    |---            |---        | ---
+| PORT                  | 8081          | number    | port on which application will be made available
+| DB_HOSTNAME           | 127.0.0.1     | string    | host on which database can be reached
+| DB_USERNAME           | root          | string    | database user
+| DB_PASSWORD           | password      | string    | database user's password
+| DB_PORT               | 3306          | number    | port on which database can be reached
+| DB_NAME               | explorer      | string    | database [schema] name
+| DB_DIALECT            | mysql         | string    | database's dialect: one of mysql / sqlite / postgres
+| GITHUB_CLIENT_ID      | n/a           | string    | github's 0auth token - [more info](https://developer.github.com/apps/building-github-apps/creating-a-github-app/)
+| GITHUB_CLIENT_SECRET  | n/a           | string    | github's 0auth token - [more info](https://developer.github.com/apps/building-github-apps/creating-a-github-app/)
 
 ### supported databases
 
