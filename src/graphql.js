@@ -17,6 +17,7 @@ export const resolvers = merge(
     status.resolvers,
     {
         Mutation: {
+            /** endpoint is done only for demo-purposes, will be dropped later */
             flushStatuses: async (entity, { input }, { orm }, info) => {
                 const statuses = await orm.Status.findAll({ raw: true });
 
@@ -40,11 +41,10 @@ export const resolvers = merge(
                     hashmap[status.parent].nodes.push(status);
                 }
 
-                const generateRandomSeq = (min, max) => Math.floor(Math.random() * (max - min)) + min;
-
                 const getRandomIntInclusive = (min, max) => {
                     min = Math.ceil(min);
                     max = Math.floor(max);
+
                     return Math.floor(Math.random() * (max - min + 1)) + min;
                 }
 
