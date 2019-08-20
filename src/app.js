@@ -1,35 +1,21 @@
 #!/usr/bin/env node
 import express from 'express';
-import session from 'express-session';
-import { typeDefs, resolvers } from './graphql';
-import orm from './orm';
-import compose from './dataloader/status.dataloader';
+import expressCookie from 'cookie-parser';
+import expressSession from 'express-session';
+import expressSessionSequelizeStore from 'express-session-sequelize';
+import cors from 'cors';
+import helmet from 'helmet';
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github';
 import { Strategy as BearerStrategy } from 'passport-http-bearer';
-import cors from 'cors';
-import helmet from 'helmet';
+
+import { ApolloServer } from 'apollo-server-express';
+import { typeDefs, resolvers } from './graphql';
+import orm from './orm';
+import compose from './dataloader/status.dataloader';
 
 const app = express();
-
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: ({ req }) => {
-        const user = req.user;
-
-        console.log({ user, 'req.session': req.session });
-
-        return {
-            user,
-            orm,
-            dataloader: compose(orm),
-        };
-    },
-});
-
 app.use(helmet());
-
 passport.use(new BearerStrategy(
     async (hash, done) => {
         const user = await orm.User.findOne({
@@ -135,21 +121,22 @@ app.use(
         credentials: true,
     })
 );
-app.use(session({
-    secret: 'test',
+// app.use(expressCookie());
+app.use(expressSession({
+    secret: process.env.SECRET,
+    // store: new (expressSessionSequelizeStore(expressSession.Store))({
+    //     db: orm.sequelize,
+    // })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.get(
-    '/auth/github',
-    passport.authenticate('github')
-);
+app.get('/auth/github', passport.authenticate('github'));
 app.get(
     '/auth/github/callback',
     passport.authenticate('github'),
     (req, res) => {
-        res.redirect(`//localhost:8080?token=${req.session.passport.user}`)
+        //return res.redirect(`//localhost:8080?token=${req.session.passport.user}`);
+        return res.redirect(`//localhost:8081/graphql`);
     },
 );
 app.get(
@@ -165,17 +152,27 @@ app.get(
     },
 );
 app.use('/graphql', (req, res, next) => {
-    console.log({
-        url: req.protocol + '://' + req.get('host') + req.originalUrl,
-        user: req.user,
-        sessionID: req.sessionID,
-        session: req.session,
-        cookie: JSON.stringify(req.cookie),
-    });
+    return res.redirect(`/auth/me`);
 
     return next();
 });
-server.applyMiddleware({ app, path: '/graphql' });
+
+// new ApolloServer({
+//     typeDefs,
+//     resolvers,
+//     context: ({ req }) => {
+//         const user = req.user;
+
+//         console.log({ user, 'req.session': req.session });
+
+//         return {
+//             user,
+//             orm,
+//             dataloader: compose(orm),
+//         };
+//     },
+// }).applyMiddleware({ app, path: '/graphql' });
+
 app
     .listen(process.env.PORT, () => {
         console.log(`GraphQL ready on: http://localhost:${process.env.PORT}/graphql`);
