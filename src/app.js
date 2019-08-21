@@ -8,6 +8,7 @@ import helmet from 'helmet';
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github';
 import { Strategy as BearerStrategy } from 'passport-http-bearer';
+import jwt from 'jsonwebtoken';
 
 import { ApolloServer } from 'apollo-server-express';
 import { typeDefs, resolvers } from './graphql';
@@ -16,8 +17,20 @@ import compose from './dataloader/status.dataloader';
 
 const app = express();
 app.use(helmet());
+app.use(
+    cors({
+        origin: "*",
+        methods: "GET,POST",
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+        credentials: true,
+    })
+);
+
 passport.use(new BearerStrategy(
-    async (hash, done) => {
+    async (token, done) => {
+        const { data: hash } = jwt.verify(token, process.env.SECRET);
+
         const user = await orm.User.findOne({
             include: [
                 {
@@ -43,8 +56,7 @@ passport.use(
         },
         async (accessToken, refreshToken, profile, done) => {
             const { provider, id: externalId, profileUrl, username, displayName, photos } = profile;
-            const photo = photos && photos[0] && photos[0].value;
-            console.log({ accessToken, refreshToken });
+
             const user = await orm.User.findOne({
                 include: [
                     {
@@ -64,7 +76,7 @@ passport.use(
 
                 v = await orm.User.create({
                     displayName,
-                    photo,
+                    photo: photos && photos[0] && photos[0].value,
                 });
 
                 await orm.UserProvider.create({
@@ -83,59 +95,59 @@ passport.use(
                 hash: accessToken,
             });
 
-            return done(null, session);
+            return done(null, { ...user, session });
         }
     )
 );
 
-passport.serializeUser(({ hash }, done) => {
-    console.log({ hash });
+passport.serializeUser(({ session }, done) => {
+    console.log({ hash: session.hash });
 
-    done(null, hash);
+    done(null, session.hash);
 });
-passport.deserializeUser(async (hash, done) => {
-    console.log({ hash });
+// passport.deserializeUser(async (hash, done) => {
 
-    const user = await orm.User.findOne({
-        include: [
-            {
-                attributes: [],
-                model: orm.UserSession,
-                where: {
-                    hash,
-                },
-            },
-        ],
-        raw: true,
-    });
+//     console.log('passport.deserializeUser(async (hash, done) => {', { hash });
 
-    done(null, user);
-});
+//     debugger;
+//     const user = await orm.User.findOne({
+//         include: [
+//             {
+//                 attributes: [],
+//                 model: orm.UserSession,
+//                 where: {
+//                     hash,
+//                 },
+//             },
+//         ],
+//         raw: true,
+//     });
 
-app.use(
-    cors({
-        origin: "*",
-        methods: "GET,POST",
-        preflightContinue: false,
-        optionsSuccessStatus: 204,
-        credentials: true,
-    })
-);
+//     done(null, user);
+// });
+
 // app.use(expressCookie());
-app.use(expressSession({
-    secret: process.env.SECRET,
-    // store: new (expressSessionSequelizeStore(expressSession.Store))({
-    //     db: orm.sequelize,
-    // })
-}));
+// app.use(expressSession({
+//     secret: process.env.SECRET,
+//     cookie: {
+//         // domain: '.localhost',
+//         path: '/',
+//         secure: false,
+//     },
+//     // store: new (expressSessionSequelizeStore(expressSession.Store))({
+//     //     db: orm.sequelize,
+//     // })
+// }));
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 app.get('/auth/github', passport.authenticate('github'));
 app.get(
     '/auth/github/callback',
     passport.authenticate('github'),
     (req, res) => {
-        //return res.redirect(`//localhost:8080?token=${req.session.passport.user}`);
+        const token = jwt.sign({ data: req.session.passport.user }, process.env.SECRET, { expiresIn: 60 * 60 * 60 });
+        debugger;
+        return res.redirect(`//localhost:8080?token=${token}&session=${req.session.passport.user}`);
         return res.redirect(`//localhost:8081/graphql`);
     },
 );
@@ -143,6 +155,8 @@ app.get(
     '/auth/me',
     (req, res) => {
         res.send({
+            headers: req.headers,
+            TOKEN: req.headers.authorization && req.headers.authorization.split(' ')[1],
             url: req.protocol + '://' + req.get('host') + req.originalUrl,
             user: req.user,
             sessionID: req.sessionID,
@@ -151,10 +165,16 @@ app.get(
         });
     },
 );
-app.use('/graphql', (req, res, next) => {
-    return res.redirect(`/auth/me`);
+app.use('/graphql',passport.authenticate('bearer', { session: false }), (req, res, next) => {
+    return res.send({
+        headers: req.headers,
+        TOKEN: req.headers.authorization && req.headers.authorization.split(' ')[1],
+        user: req.user,
+    });
 
-    return next();
+    // return res.redirect(`/auth/me`);
+
+    // return next();
 });
 
 // new ApolloServer({
