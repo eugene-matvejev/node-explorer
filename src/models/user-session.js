@@ -9,6 +9,12 @@ export default (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 primaryKey: true,
             },
+            device: {
+                type: DataTypes.STRING,
+            },
+            providerId: {
+                type: DataTypes.STRING,
+            }
         },
         {
             tableName: 'user_sessions',

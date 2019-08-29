@@ -14,11 +14,10 @@ export default {
     `,
     resolvers: {
         Query: {
-            me: (entity, { hash }, { user, orm }, info) => user,
+            me: (entity, args, { user }, info) => user,
         },
         User: {
             providers: (entity, { hash }, { user, orm }, info) => {
-                debugger;
                 return orm.UserProvider.findAll({
                     where: {
                         internalId: entity.id,
@@ -27,7 +26,6 @@ export default {
                 });
             },
             sessions: (entity, { hash }, { user, orm }, info) => {
-                debugger;
                 return orm.UserSession.findAll({
                     where: {
                         internalId: entity.id,

@@ -1,38 +1,51 @@
 export default {
     typeDefs: `
         extend type Query {
-            session(hash: ID!): UserSession
             sessions: [UserSession]
         }
 
         extend type Mutation {
-            logout: UserSession
-            logoutEverywhere: [UserSession]
+            logout(hash: ID): ID
+            logoutEverywhere: Int
         }
 
         type UserSession {
             hash: ID!
+            device: String!
+            provider: UserProvider!
         }
     `,
     resolvers: {
         Mutation: {
-            logout: (entity, { hash }, { user, orm }, info) => {
-                return null;
-            },
-            logoutEverywhere: (entity, { hash }, { user, orm }, info) => {
-                return null;
-            },
-        },
-        Query: {
-            session: (entity, { hash }, { user, orm }, info) => {
-                return orm.UserSession.findOne({
+            logout: async (entity, { hash }, { user, orm }, info) => {
+                hash = hash || user.session
+
+                await orm.UserSession.destroy({
                     where: {
                         internalId: user.id,
                         hash,
                     },
-                    raw: true,
+                    paranoid: true,
+                });
+
+                return hash;
+            },
+            logoutEverywhere: async (entity, args, { user, orm }, info) => {
+                const { Op } = orm.Sequelize;
+
+                return orm.UserSession.destroy({
+                    where: {
+                        internalId: user.id,
+                        hash: {
+                            [Op.not]: user.session,
+                        },
+                    },
+                    logging: true,
+                    paranoid: true,
                 });
             },
+        },
+        Query: {
             sessions: (entity, args, { user, orm }, info) => {
                 return orm.UserSession.findAll({
                     where: {
@@ -42,5 +55,16 @@ export default {
                 });
             },
         },
+        UserSession: {
+            provider: async (entity, args, { user, orm }, info) => {
+                return orm.UserProvider.findOne({
+                    where: {
+                        externalId: entity.providerId,
+                        internalId: user.id,
+                    },
+                    raw: true,
+                });
+            },
+        }
     },
 }

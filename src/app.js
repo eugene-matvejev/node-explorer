@@ -10,13 +10,14 @@ import { ApolloServer } from 'apollo-server-express';
 import { typeDefs, resolvers } from './graphql';
 import orm from './orm';
 import compose from './dataloader/status.dataloader';
+import userAgent from 'express-useragent';
 
 const app = express();
 app.use(helmet());
 app.use(
     cors({
-        origin: "*",
-        methods: "GET,POST",
+        origin: '*',
+        methods: 'GET,POST',
         preflightContinue: false,
         optionsSuccessStatus: 204,
         credentials: true,
@@ -68,6 +69,7 @@ passport.use(
 
             const session = await orm.UserSession.create({
                 internalId: user.id,
+                providerId: externalId,
                 hash: accessToken,
             });
 
@@ -84,7 +86,6 @@ passport.use(new BearerStrategy(
             const user = await orm.User.findOne({
                 include: [
                     {
-                        attributes: [],
                         model: orm.UserSession,
                         where: {
                             hash,
@@ -92,7 +93,7 @@ passport.use(new BearerStrategy(
                     },
                 ],
                 raw: true,
-            });
+            }).then((v) => ({ ...v, session: hash }));
 
             if (null === user) {
                 return done(null, false);
@@ -109,19 +110,30 @@ app.get('/auth/github', passport.authenticate('github'));
 app.get(
     '/auth/github/callback',
     passport.authenticate('github'),
-    (req, res) => {
-        const token = jwt.sign({ data: req.session.passport.user }, process.env.SECRET, { expiresIn: '60d' });
+    async (req, res) => {
+        const { user: hash } = req.session.passport;
+        const agent = userAgent.parse(req.headers['user-agent']);
+        const token = jwt.sign({ data: hash }, process.env.SECRET, { expiresIn: '60d' });
 
-        return res.redirect(`//localhost:8080?token=${token}&session=${req.session.passport.user}`);
+        await orm.UserSession.update(
+            {
+                device: agent.browser + ` (`+ agent.platform + `)`,
+            },
+            {
+                where: {
+                    hash
+                }
+            }
+        );
+
+        return res.redirect(`//localhost:8080?token=${token}`);
     },
 );
-app.get('/auth/me', passport.authenticate('bearer', { session: false }), (req, res) => {
-    // console.log('/auth/me', { user: req.user });
-
-    return res.send(req.user);
-});
+// app.get('/auth/me', passport.authenticate('bearer', { session: false }), (req, res) => {
+//     return res.send(req.user);
+// });
 app.post('/graphql', passport.authenticate('bearer', { session: false }), (req, res, next) => next());
-app.get('/graphql', (req, res, next) => next());
+// app.get('/graphql', (req, res, next) => next());
 
 new ApolloServer({
     typeDefs,

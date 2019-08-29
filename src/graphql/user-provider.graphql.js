@@ -6,7 +6,7 @@ export default {
 
         type UserProvider {
             externalId: ID!
-            provider: String!
+            name: String!
             user: User!
             username: String!
             profileUrl: String!
@@ -50,7 +50,8 @@ export default {
                     },
                     raw: true,
                 })
-            }
+            },
+            name: (entity, args, context, info) => entity.provider,
         }
     },
 }

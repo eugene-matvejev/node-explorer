@@ -20,6 +20,12 @@ module.exports = {
                 internalId: {
                     type: Sequelize.INTEGER,
                 },
+                providerId: {
+                    type: Sequelize.STRING,
+                },
+                device: {
+                    type: Sequelize.STRING,
+                },
                 hash: {
                     type: Sequelize.STRING,
                     primaryKey: true,
