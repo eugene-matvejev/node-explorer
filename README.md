@@ -52,8 +52,8 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 ### how to run tests
 
 * `$ make test` or `$ npm test`
-  * __optional__ [ 'jest' CLI params](https://facebook.github.io/jest/docs/en/cli.html) some examples:
-    * to generate coverage report, example: `$ npm test -- --coverage`, which will be located in __./coverage__ directory
+  * __optional__ [ 'jest' CLI params](https://facebook.github.io/jest/docs/en/cli.html), examples:
+    * to collect coverage, example: `$ npm test -- --coverage`, report will be located in __./coverage__ directory
     * to execute tests __only__ in specific file, example: `$ npm test src/graphql/user.test.js`
 
 ### how to setup a database
