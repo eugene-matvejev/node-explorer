@@ -3,7 +3,6 @@ export default (sequelize, DataTypes) => {
         'Status',
         {
             id: {
-                // type: DataTypes.UUID,
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
