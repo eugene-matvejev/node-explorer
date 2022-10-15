@@ -13,8 +13,6 @@
 | __tests__     | [![tests][ci.tests-master-badge]][ci.tests-master]            | [![tests][ci.tests-heroku-badge]][ci.tests-heroku]
 | __coverage__  | [![coverage][ci.coverage-master-badge]][ci.coverage-master]   | [![coverage][ci.coverage-heroku-badge]][ci.coverage-heroku]
 
-##### THIS IS A SPARE TIME PROJECT, WORK IN PROGRESS! [DEMO](https://sa-explorer.herokuapp.com/)
-
 # 'Explorer' GraphQL back-end
 
 front-end can be found [here](https://github.com/eugene-matvejev/react-explorer)
@@ -47,20 +45,20 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 
 ### how to install
 
-* with `make` commands no steps additional required, otherwise you need execute `$ npm i`
+* with `make` commands no steps additional are required, otherwise you need to execute `$ npm i`
 
 ### how to run tests
 
 * `$ make test` or `$ npm test`
   * __optional__ [ 'jest' CLI params](https://facebook.github.io/jest/docs/en/cli.html), examples:
     * to collect coverage, example: `$ npm test -- --coverage`, report will be located in __./coverage__ directory
-    * to execute tests __only__ in specific file, example: `$ npm test src/graphql/user.test.js`
+    * to execute tests __only__ in a specific file, for example: `$ npm test src/graphql/user.test.js`
 
-### how to setup a database
+### how to set up a database
 
 * database configuration is located in the file __config/config.js__
-* to get database schema up to date: `$ npm run sql db:migrate`, you can also create database via ORM `npm run sql db:create`
-* to seed database with 'test' data: `$ npm run sql db:seed:all`
+* to get database schema up to date: `$ npm run sql db:migrate`, you can also create a database via ORM `npm run sql db:create`
+* to seed the database with 'test' data: `$ npm run sql db:seed:all`
 
 ### how to run in 'development' mode
 
@@ -80,8 +78,8 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 
 * *heroku* -> current __production__, contains *heroku specific changes*, trigger deploy on heroku on *every push*
 * *master* -> most upto date __production ready__, all pull requests in to this branch got mandatory check 'ci/circleci: jest'
-* *feature branches* -> get merged into master branch, when they ready and mandatory checks passed
-* *CI execute tests in isolated enviroment*
+* *feature branches* -> get merged into the master branch, when they are ready and mandatory checks passed
+* *CI executes tests in an isolated environment*
 
 ### used environment variables
 
@@ -97,7 +95,7 @@ if you're using `make` commands, __[docker](https://docs.docker.com/install/)__ 
 
 ### supported databases
 
-code, migrations, and fixtures are written in a way, that is supports 3 different database engines
+code, migrations, and fixtures are written in a way, that supports 3 different database engines
 
 | database      | version   | adapter                                           | main purpose
 |---            |---        | ---                                               | ---
