@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server';
-import { merge } from 'lodash';
+import merge from 'lodash.merge';
 
 import status from './graphql/status';
 
