@@ -3,7 +3,7 @@ version: 2
 jobs:
   jest:
     docker:
-      - image: circleci/node:lts-jessie
+      - image: cimg/node:14.15.5
     steps:
       - checkout
       - restore_cache:
