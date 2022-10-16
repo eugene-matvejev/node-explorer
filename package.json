@@ -8,14 +8,14 @@
     "node": ">=10"
   },
   "dependencies": {
-    "apollo-server": "^2.6.3",
+    "apollo-server": "^2.26.0",
     "dataloader": "^1.4.0",
-    "dotenv": "^8.0.0",
-    "graphql": "^14.3.1",
+    "dotenv": "^8.6.0",
+    "graphql": "^14.7.0",
     "lodash.merge": "^4.6.0",
     "mysql2": "^2.2.5",
-    "pg": "^7.11.0",
-    "sequelize": "^5.15.1"
+    "pg": "^7.18.0",
+    "sequelize": "^5.22.0"
   },
   "optionalDependencies": {
     "sqlite3": "^5.1.0"
